@@ -1,0 +1,232 @@
+@layer reset {
+	Add commentMore actions *,
+	*::before,
+	*::after {
+		box-sizing: border-box;
+	}
+
+	html {
+		-moz-text-size-adjust: none;
+		-webkit-text-size-adjust: none;
+		text-size-adjust: none;
+	}
+
+	body,
+	h1,
+	h2,
+	h3,
+	h4,
+	p,
+	figure,
+	blockquote,
+	dl,
+	dd {
+		margin-block-end: 0;
+	}
+
+	dd {
+		margin-inline: 0;
+	}
+
+	body {
+		margin: 0;
+		padding: 0;
+	}
+
+	ul[role="list"],
+	ol[role="list"] {
+		list-style: none;
+	}
+
+	body {
+		line-height: 1.5;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	button,
+	input,
+	label {
+		line-height: 1.1;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4 {
+		text-wrap: balance;
+	}
+
+	a:not([class]) {
+		text-decoration-skip-ink: auto;
+		color: currentColor;
+	}
+
+	img,
+	picture {
+		max-width: 100%;
+		display: block;
+	}
+
+	figure {
+		margin: 0;
+		padding: 0;
+	}
+
+	dialog {
+		padding: 0;
+	}
+
+	input,
+	button,
+	textarea,
+	select {
+		font-family: inherit;
+		font-size: inherit;
+		line-height: inherit;
+		letter-spacing: inherit;
+	}
+
+	textarea:not([rows]) {
+		min-height: 10em;
+	}
+
+	:target {
+		scroll-margin-block: 5ex;
+	}
+}
+
+@layer base {
+	:root {
+		--ff-normal: "Inter", sans-serif;
+		--ff-writing: "Caveat", cursive;
+
+		/* Color */
+		--dc--grey--dark: rgba(237, 237, 237, 1);
+		--dc--grey--darkest: rgba(100, 100, 100, 1);
+		--dc--grey--darker: rgba(226, 226, 226, 1);
+		--dc--grey--light: rgba(230, 230, 230, 1);
+
+		--dc--white--pure: rgba(255, 255, 255, 1);
+		--dc--white--offwhite: rgba(250, 250, 250, 1);
+
+		--dc--accent--green-light: rgba(4, 209, 49, 1);
+		--dc--accent--green: rgba(8, 178, 45, 1);
+		--dc--accent--green-dark: rgba(38, 92, 30, 1);
+		--dc--accent--yellow-light: rgba(255, 243, 50, 1);
+		--dc--accent--yellow: rgba(233, 220, 12, 1);
+		--dc--accent--yellow-dark: rgba(113, 117, 0, 1);
+		--dc--accent--blackbean: rgba(59, 20, 0, 1);
+		--dc--accent--blue: rgba(13, 125, 237, 1);
+		--dc--accent--skyblue: rgba(13, 222, 237, 1);
+		--dc--accent--blue-dark: rgba(29, 119, 255, 1);
+		--dc--accent--purple: rgba(225, 13, 237, 1);
+		--dc--accent--purple-light: rgba(219, 102, 254, 1);
+		--dc--accent--purple-dark: rgba(225, 1, 184, 1);
+		--dc--accent--purple-lighter: rgba(232, 209, 245, 1);
+		--dc--accent--red: rgba(237, 13, 69, 1);
+		--dc--accent--red-light: rgba(237, 13, 136, 1);
+		--dc--accent--red-dark: rgba(195, 14, 114, 1);
+		--dc--accent--orange-dark: rgba(225, 79, 5, 1);
+		--dc--accent--orange: rgba(237, 88, 13, 1);
+		--dc--accent--orange-darker: rgba(196, 71, 8, 1);
+		--dc--accent--orange-darkest: rgba(198, 67, 1, 1);
+		--dc--accent--red-darker: rgba(187, 3, 49, 1);
+		--dc--accent--indigo: rgba(110, 13, 237, 1);
+		--dc--accent--indigo-dark: rgba(100, 14, 213, 1);
+		--dc--accent--indigo-darker: rgba(65, 0, 150, 1);
+		--dc--accent--indigo-darkish: rgba(83, 9, 180, 1);
+		--dc--accent--indigo-darkest: rgba(62, 7, 134, 1);
+		--dc--accent--blue-darkest: rgba(59, 0, 222, 1);
+		--dc--accent--indigo-dye: rgba(31, 64, 89, 1);
+		--dc--accent--darkcyan: rgba(3, 153, 164, 1);
+		--dc--accent--darkslategray: rgba(27, 73, 71, 1);
+		--dc--accent--denim: rgba(3, 93, 184, 1);
+		--dc--accent--prussian-blue: rgba(14, 43, 65, 1);
+		--dc--accent--russian-violet: rgba(40, 10, 67, 1);
+		--dc--accent--jet: rgba(44, 43, 44, 1);
+
+		/* Font Sizes */
+		--step-0: 0.875rem; /* 14px */
+		--step-1: 1.125rem; /* 18px */
+		--step-2: 1.25rem; /* 20px */
+		--step-3: 1.5rem; /* 24px */
+		--step-4: 1.625rem; /* 26px */
+		--step-5: 2.75rem; /* 44px */
+		--step-6: 5.5rem; /* 88px */
+		--step-7: 4rem; /* 64px */
+		--step-8: 8rem; /* 128px */
+
+		--fw-semibold: 600;
+		--fw-bold: 700;
+		--fw-black: 900;
+
+		/* Letter Spacing */
+		-ls-s: -0.03em; /* -3% */
+		-ls-m: -0.05em; /* -5% */
+		-ls-l: -0.06em; /* -6% */
+
+		/* Elevations/Shadows */
+		/* Effect styles */
+		--box-elevation: 0px 20px 30px rgba(157, 157, 157, 0.25);
+		--scroll-elevation: 0px 20px 100px rgba(120, 117, 117, 0.25);
+		--button-elevation: 0px 4px 12.100000381469727px rgba(230, 230, 230, 0.25),
+			inset 0px -4px 4px rgba(255, 255, 255, 0.25),
+			inset 11px 7px 0px rgba(225, 79, 5, 1),
+			0px -0.5px 1px rgba(255, 255, 255, 0.55), 0px 0.5px 2px rgba(0, 0, 0, 0.5),
+			0px -0.5px 1px rgba(255, 255, 255, 0.55), 0px 0.5px 2px rgba(0, 0, 0, 0.5);
+		--input-elevation: 0px 4px 12.100000381469727px rgba(230, 230, 230, 0.25);
+		--number--one-elevation: 0px 4px 12.100000381469727px
+				rgba(230, 230, 230, 0.25),
+			inset 0px -4px 4px rgba(255, 255, 255, 0.25),
+			inset 11px 7px 0px rgba(225, 79, 5, 1),
+			0px -0.5px 1px rgba(255, 255, 255, 0.55), 0px 0.5px 2px rgba(0, 0, 0, 0.5);
+		--number--two-elevation: 0px 4px 12.100000381469727px
+				rgba(230, 230, 230, 0.25),
+			inset 0px -4px 4px rgba(255, 255, 255, 0.25),
+			inset 11px 7px 0px rgba(7, 213, 228, 1),
+			0px -0.5px 1px rgba(255, 255, 255, 0.55), 0px 0.5px 2px rgba(0, 0, 0, 0.5);
+		--number--four-elevation: 0px 4px 12.100000381469727px
+				rgba(230, 230, 230, 0.25),
+			inset 0px -4px 4px rgba(255, 255, 255, 0.25),
+			inset 11px 7px 0px rgba(9, 222, 56, 1),
+			0px -0.5px 1px rgba(255, 255, 255, 0.55), 0px 0.5px 2px rgba(0, 0, 0, 0.5);
+		--number--three-elevation: 0px 4px 12.100000381469727px
+				rgba(230, 230, 230, 0.25),
+			inset 0px -4px 4px rgba(255, 255, 255, 0.25),
+			inset 11px 7px 0px rgba(225, 5, 218, 1),
+			0px -0.5px 1px rgba(255, 255, 255, 0.55), 0px 0.5px 2px rgba(0, 0, 0, 0.5);
+		--number--five-elevation: 0px 4px 12.100000381469727px
+				rgba(230, 230, 230, 0.25),
+			inset 0px -4px 4px rgba(255, 255, 255, 0.25),
+			inset 11px 7px 0px rgba(248, 236, 44, 1),
+			0px -0.5px 1px rgba(255, 255, 255, 0.55), 0px 0.5px 2px rgba(0, 0, 0, 0.5);
+		--number--six-elevation: 0px 4px 12.100000381469727px
+				rgba(230, 230, 230, 0.25),
+			inset 0px -4px 4px rgba(255, 255, 255, 0.25),
+			inset 11px 7px 0px rgba(100, 14, 213, 1),
+			0px -0.5px 1px rgba(255, 255, 255, 0.55), 0px 0.5px 2px rgba(0, 0, 0, 0.5);
+		--number--seven-elevation: 0px 4px 12.100000381469727px
+				rgba(230, 230, 230, 0.25),
+			inset 0px -4px 4px rgba(255, 255, 255, 0.25),
+			inset 11px 7px 0px rgba(217, 20, 69, 1),
+			0px -0.5px 1px rgba(255, 255, 255, 0.55), 0px 0.5px 2px rgba(0, 0, 0, 0.5);
+		--number--nine-elevation: 0px 4px 12.100000381469727px
+				rgba(230, 230, 230, 0.25),
+			inset 0px -4px 4px rgba(255, 255, 255, 0.25),
+			inset 11px 7px 0px rgba(221, 31, 136, 1),
+			0px -0.5px 1px rgba(255, 255, 255, 0.55), 0px 0.5px 2px rgba(0, 0, 0, 0.5);
+		--number--eight-elevation: 0px 4px 12.100000381469727px
+				rgba(230, 230, 230, 0.25),
+			inset 0px -4px 4px rgba(255, 255, 255, 0.25),
+			inset 11px 7px 0px rgba(25, 115, 204, 1),
+			0px -0.5px 1px rgba(255, 255, 255, 0.55), 0px 0.5px 2px rgba(0, 0, 0, 0.5);
+		--number--ten-elevation: 0px 4px 12.100000381469727px
+				rgba(230, 230, 230, 0.25),
+			inset 0px -4px 4px rgba(255, 255, 255, 0.25),
+			inset 11px 7px 0px rgba(24, 52, 73, 1),
+			0px -0.5px 1px rgba(255, 255, 255, 0.55), 0px 0.5px 2px rgba(0, 0, 0, 0.5);
+	}
+}
