@@ -241,7 +241,7 @@
 		background-size: 10px 10px;
 		background-repeat: space;
 		padding-block: 64px;
-		padding-inline: 16px;
+		padding-inline: 16px 24px;
 	}
 }
 
@@ -255,7 +255,7 @@
 		font-size: var(--step-8);
 		line-height: 1.2;
 		margin: 0;
-		margin-block-end: clamp(3.75rem, 3.4022rem + 1.7391vw, 4.75rem);
+		margin-block-end: 24px;
 		letter-spacing: var(--ls-s);
 		display: flex;
 		flex-wrap: wrap;
@@ -372,11 +372,12 @@
 		/* width: 100%; */
 
 		input {
-			flex: 1 1 650px;
+			flex: 1 1 850px;
 			font-size: var(--step-7);
 			font-weight: var(--fw-black);
 			color: var(--dc--grey--darkest);
 			letter-spacing: var(--ls-s);
+			line-height: normal;
 			min-width: 0;
 			padding: 8px 20px;
 			border: 3px solid var(--dc--grey--darker);
@@ -402,6 +403,130 @@
 			&:hover {
 				background: var(--dc--accent--orange-darkest);
 			}
+		}
+	}
+
+	.info-section {
+		p {
+			font-size: var(--step-6);
+			font-weight: var(--fw-bold);
+			line-height: normal;
+			letter-spacing: var(--ls-m);
+			color: var(--dc--accent--orange);
+			margin: 0;
+
+			&:first-child {
+				margin-block-start: 24px;
+				position: relative;
+
+				span:nth-child(n + 2) {
+					margin-inline-end: -24px;
+					vertical-align: bottom;
+				}
+
+				&::before {
+					content: url(https://ik.imagekit.io/ndtwmeq4p/dc/up%20arrow.png);
+					position: absolute;
+					top: -48px;
+					left: 240px;
+				}
+			}
+		}
+	}
+
+	.number {
+		display: inline-block;
+		border-radius: 16px;
+		padding: 8px 20px;
+
+		background: var(--bg-color);
+		color: var(--color);
+		border: 2px solid var(--border-color);
+		box-shadow: var(--elevation);
+		transform: rotate(var(--rotation));
+
+		font-size: var(--step-5);
+		line-height: normal;
+		letter-spacing: var(--ls-s);
+
+		&[id="one"] {
+			--bg-color: var(--dc--accent--orange);
+			--color: var(--dc--white--pure);
+			--border-color: var(--dc--accent--orange-darkest);
+			--elevation: var(--number--one-elevation);
+			--rotation: -6.35deg;
+		}
+
+		&[id="two"] {
+			--bg-color: var(--dc--accent--skyblue);
+			--color: var(--dc--white--pure);
+			--border-color: var(--dc--accent--darkcyan);
+			--elevation: var(--number--two-elevation);
+			--rotation: 2.2deg;
+		}
+
+		&[id="three"] {
+			--bg-color: var(--dc--accent--purple);
+			--color: var(--dc--white--pure);
+			--border-color: var(--dc--accent--purple-dark);
+			--elevation: var(--number--three-elevation);
+			--rotation: -1.75deg;
+		}
+
+		&[id="four"] {
+			--bg-color: var(--dc--accent--green-light);
+			--color: var(--dc--accent--green-dark);
+			--border-color: var(--dc--accent--green);
+			--elevation: var(--number--four-elevation);
+			--rotation: -7.22deg;
+		}
+
+		&[id="five"] {
+			--bg-color: var(--dc--accent--yellow-light);
+			--color: var(--dc--accent--yellow-dark);
+			--border-color: var(--dc--accent--yellow);
+			--elevation: var(--number--five-elevation);
+			--rotation: 2.99deg;
+		}
+
+		&[id="six"] {
+			--bg-color: var(--dc--accent--indigo);
+			--color: var(--dc--white--pure);
+			--border-color: var(--dc--accent--indigo-darkish);
+			--elevation: var(--number--six-elevation);
+			--rotation: -1.22deg;
+		}
+
+		&[id="seven"] {
+			--bg-color: var(--dc--accent--red);
+			--color: var(--dc--white--pure);
+			--border-color: var(--dc--accent--red-darker);
+			--elevation: var(--number--seven-elevation);
+			--rotation: 3.7deg;
+		}
+
+		&[id="eight"] {
+			--bg-color: var(--dc--accent--blue);
+			--color: var(--dc--white--pure);
+			--border-color: var(--dc--accent--denim);
+			--elevation: var(--number--eight-elevation);
+			--rotation: 0deg;
+		}
+
+		&[id="nine"] {
+			--bg-color: var(--dc--accent--red-light);
+			--color: var(--dc--white--pure);
+			--border-color: var(--dc--accent--red-dark);
+			--elevation: var(--number--nine-elevation);
+			--rotation: 6.69deg;
+		}
+
+		&[id="ten"] {
+			--bg-color: var(--dc--accent--indigo-dye);
+			--color: var(--dc--white--pure);
+			--border-color: var(--dc--accent--prussian-blue);
+			--elevation: var(--number--ten-elevation);
+			--rotation: -6.07deg;
 		}
 	}
 
@@ -474,6 +599,7 @@
 		position: fixed;
 		bottom: 8px;
 		left: 0;
+		z-index: 4;
 
 		padding-inline-start: 8px;
 
@@ -601,6 +727,16 @@
 
 		& > span:last-child {
 			align-self: flex-end;
+		}
+	}
+}
+
+@media (width <=1170px) {
+	.info-section {
+		p {
+			&:first-child::before {
+				display: none;
+			}
 		}
 	}
 }
