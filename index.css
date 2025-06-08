@@ -159,6 +159,7 @@
 		--step-7: clamp(2.5rem, 1.4565rem + 5.2174vw, 5.5rem); /* 88px */
 		--step-8: clamp(4rem, 2.6087rem + 6.9565vw, 8rem); /* 128px */
 
+		--fw-medium: 500;
 		--fw-semibold: 600;
 		--fw-bold: 700;
 		--fw-black: 900;
@@ -167,6 +168,7 @@
 		--ls-s: -0.03em; /* -3% */
 		--ls-m: -0.05em; /* -5% */
 		--ls-l: -0.06em; /* -6% */
+		--ls-xl: --0.07em /* -7% */
 
 		/* Elevations/Shadows */
 		/* Effect styles */
@@ -471,7 +473,9 @@
 		transition: transform 0.4s ease-in-out;
 		position: fixed;
 		bottom: 8px;
-		left: 8px;
+		left: 0;
+
+		padding-inline-start: 8px;
 
 		&:hover {
 			transform: none;
@@ -491,6 +495,9 @@
 		bottom: 8px;
 		right: 8px;
 
+		display: grid;
+		justify-items: end;
+
 		button {
 			padding: 5px 7px;
 			border-radius: 7px;
@@ -509,7 +516,79 @@
 				vertical-align: -4px;
 			}
 		}
+
+		.table {
+			display: grid;
+			grid-template-columns: repeat(11, 28px);
+			grid-auto-rows: 28px;
+			gap: 4px;
+			padding: 10px 8px;
+			background: var(--dc--accent--indigo-dark);
+			color: var(--dc--white--pure);
+			border-radius: 7px;
+			box-shadow: var(--box-elevation);
+			font-size: var(--step-0);
+			font-weight: var(--fw-medium);
+			letter-spacing: var(--ls-xl);
+			margin-block-end: 8px;
+	
+			.table-item {
+				text-align: center;
+				display: grid;
+				place-content: center;
+				position: relative;
+
+				&[data-info]:hover {
+					background: var(--dc--white--pure);
+					color: var(--dc--accent--indigo-dark);
+					border-radius: 50%;
+
+					&::after {
+						position: absolute;
+						content: attr(data-info);
+						width: max-content;
+						text-wrap: nowrap;
+						top: 115%;
+						left: -50%;
+						border-radius: 4px;
+						padding: 4px;
+						background: var(--dc--accent--jet);
+						color: var(--dc--white--offwhite);
+						font-size: 14px;
+						z-index: 3;
+						box-sizing: var(--input-elevation);
+					}
+
+				}
+				
+				&:nth-child(11n + 11):hover {
+					&::after {
+						left: -190%;
+					}
+				}
+			}
+
+			display: none;
+			transform: translateX(100%);
+			transition: display 0.4s ease-in, transform 0.4s ease-in;
+			transition-behavior: allow-discrete;
+
+			&[data-open="true"] {
+				display: grid;
+				transform: none;
+
+				@starting-style {
+					/* display: none; */
+					transform: translateX(100%);
+				}
+			}
+
+			&[data-open="false"] {
+				display: none;
+			}
+		}
 	}
+
 }
 
 @media (width <=1265px) {
