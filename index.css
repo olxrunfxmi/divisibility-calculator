@@ -756,7 +756,7 @@
 	}
 
 	.five {
-		--bg-color: var(--dc--accent--yellow-light);
+		--bg-color: var(--dc--accent--yellow-dark);
 		--color: var(--dc--accent--yellow-dark);
 		--border-color: var(--dc--accent--yellow);
 		--elevation: var(--number--five-elevation);
@@ -838,6 +838,8 @@
 
 			.rule-item {
 				max-width: 550px;
+				display: grid;
+				gap: 12px;
 
 				.number {
 					margin-inline-start: 6px;
@@ -849,7 +851,6 @@
 					letter-spacing: var(--ls-m);
 					color: var(--bg-color);
 					margin: 0;
-					margin-block-end: 4px;
 				}
 
 				.breakdown {
@@ -859,6 +860,12 @@
 						letter-spacing: var(--ls-s);
 						color: var(--dc--grey--darkest);
 						margin-block-start: -16px;
+						position: relative;
+					}
+
+					.number {
+						margin-block-start: 16px;
+						position: relative;
 					}
 
 					.box-input {
@@ -871,32 +878,11 @@
 						background: var(--dc--white--pure);
 						padding: 8px 20px;
 						margin-block-start: 16px;
+						line-height: normal;
 						position: relative;
 
 						&[data-active="true"] {
 							border: 3px solid var(--bg-color);
-						}
-
-						.box-details {
-							position: absolute;
-							left: 110%;
-							top: 60%;
-
-							display: flex;
-
-							svg path {
-								stroke: var(--bg-color);
-							}
-
-							.text {
-								color: var(--bg-color);
-								transform: rotate(-4.19deg);
-								font-family: var(--ff-writing);
-								font-weight: var(--fw-bold);
-								font-size: var(--step-3);
-								letter-spacing: var(--ls-m);
-								text-wrap: nowrap;
-							}
 						}
 					}
 				}
@@ -906,11 +892,21 @@
 					letter-spacing: var(--ls-m);
 					font-weight: var(--fw-semibold);
 					font-size: var(--step-1);
-					margin-block-start: 12px;
+					margin-block-start: 0;
+
+					
 				}
 
 				.breakdown + p {
 					margin-block-start: 16px;
+
+					&[data-size="big"] {
+						margin-block-start: 24px;
+					}
+
+					&[data-size="bigger"] {
+						margin-block-start: 36px;
+					}
 				}
 			}
 		}
@@ -936,6 +932,49 @@
 			background-image: url(https://ik.imagekit.io/ndtwmeq4p/dc/bottom-flap.svg);
 			bottom: 2px;
 			right: -12px;
+		}
+	}
+
+	.box-details-wrapper {
+		position: absolute;
+		left: 110%;
+		top: 60%;
+
+		display: flex;
+		gap: 8px;
+
+		&[data-type="bottom"] {
+			left: 50%;
+			top: 110%;
+		}
+
+		&[data-type="starter"] {
+			left: 10%;
+			top: 110%;
+		}
+
+		&[data-type="ender"] {
+			left: 25%;
+			top: 90%;
+		}
+	}
+
+	.box-details {
+
+		display: flex;
+
+		svg path {
+			stroke: var(--bg-color);
+		}
+
+		.text {
+			color: var(--bg-color);
+			transform: rotate(-4.19deg);
+			font-family: var(--ff-writing);
+			font-weight: var(--fw-bold);
+			font-size: var(--step-3);
+			letter-spacing: var(--ls-m);
+			text-wrap: nowrap;
 		}
 	}
 
