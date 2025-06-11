@@ -835,9 +835,10 @@
 			grid-auto-rows: auto;
 			gap: 32px;
 			overflow:hidden; /* hotfix */
+			overflow-x: auto;
 
 			.rule-item {
-				max-width: 550px;
+				max-width: 500px;
 				display: grid;
 				gap: 12px;
 
