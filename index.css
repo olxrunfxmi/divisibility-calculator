@@ -256,7 +256,7 @@
 		font-size: var(--step-8);
 		line-height: 1.2;
 		margin: 0;
-		margin-block-end: 24px;
+		margin-block-end: 64px;
 		letter-spacing: var(--ls-s);
 		display: flex;
 		flex-wrap: wrap;
@@ -1026,6 +1026,7 @@
 @media (width <=1265px) {
 	h1 {
 		flex-direction: column;
+		margin-block-end: 24px;
 
 		& > span:first-child {
 			align-self: start;
