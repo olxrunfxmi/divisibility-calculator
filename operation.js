@@ -1,16 +1,27 @@
 import { createElement } from "./index.js";
 
 const infoParaEl = document.querySelector("#info-para");
-const divisorHolderEl = infoParaEl.querySelector("#number-divisor");
 const divisionButtonEl = document.querySelector("#divisible_check");
 const inputEl = document.querySelector("#dividend");
+const infoSectionEl = document.querySelector(".info-section");
 
 divisionButtonEl.addEventListener("click", () => {
 	if (inputEl.value !== "") {
-		const dividend = inputEl.value;
+		infoSectionEl.dataset.open = "true";
+		infoParaEl.textContent = "This number is divisible by ";
 
+		const dividend = inputEl.value;
 		const digitDivisors = generateDivisors(dividend);
-		divisorHolderEl.textContent = updateDivisorCount(digitDivisors);
+		const divisorCount = updateDivisorCount(digitDivisors);
+		const divisorHolderEl = createElement(
+			"span",
+			divisorCount,
+			[],
+			undefined,
+			"number-divisor"
+		);
+		infoParaEl.appendChild(divisorHolderEl);
+
 		addNumberKeys(infoParaEl, digitDivisors);
 	}
 });
@@ -43,8 +54,6 @@ function updateDivisorCount(digitDivisors) {
 
 	return `${count} ${text}`;
 }
-
-console.log(updateDivisorCount([1, 7]));
 
 function generateRules(digitDivisors) {
 	createRuleItem();
