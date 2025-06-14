@@ -10,7 +10,8 @@
         href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="index.css">
-    <script src="index.js" defer></script>
+    <script type="module" src="index.js" defer></script>
+    <script type="module" src="operation.js" defer></script>
     <title>Divisibility Calculator</title>
 </head>
 
@@ -27,12 +28,12 @@
             <span data-info="Know the Rules">Calculator</span>
         </h1>
         <div class="input">
-            <input type="number" id="dividend" name="dividend">
-            <button>Check for Divisibility</button>
+            <input type="number" id="dividend" name="dividend" min="1">
+            <button id="divisible_check">Check for Divisibility</button>
         </div>
         <div class="info-section">
-            <p>
-                This number is divisible by <span id="number-divisor">4</span> nos.
+            <p id="info-para">
+                This number is divisible by <span id="number-divisor">4 nos.</span>
                 <span class="number" data-number="one">1</span>
                 <span class="number" data-number="two">2</span>
                 <span class="number" data-number="three">3</span>

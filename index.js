@@ -40,3 +40,5 @@ function createElement(elementType, textContent, classArr, data) {
 
 	return element;
 }
+
+export { createElement };
