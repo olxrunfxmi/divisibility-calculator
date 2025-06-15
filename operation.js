@@ -4,10 +4,13 @@ const infoParaEl = document.querySelector("#info-para");
 const divisionButtonEl = document.querySelector("#divisible_check");
 const inputEl = document.querySelector("#dividend");
 const infoSectionEl = document.querySelector(".info-section");
+const rulesEl = document.querySelector(".rules");
 
 divisionButtonEl.addEventListener("click", () => {
 	if (inputEl.value !== "") {
 		infoSectionEl.dataset.open = "true";
+		rulesEl.dataset.open = "true";
+
 		infoParaEl.textContent = "This number is divisible by ";
 
 		const dividend = inputEl.value;
@@ -55,11 +58,6 @@ function updateDivisorCount(digitDivisors) {
 	return `${count} ${text}`;
 }
 
-function generateRules(digitDivisors) {
-	createRuleItem();
-	createBreakdown(number);
-}
-
 function numberToWords(num) {
 	const words = [
 		"one",
@@ -77,4 +75,9 @@ function numberToWords(num) {
 	if (num >= 1 && num <= 10) {
 		return words[num - 1];
 	}
+}
+
+function generateRules(digitDivisors) {
+	createRuleItem();
+	createBreakdown(number);
 }
