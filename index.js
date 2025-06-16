@@ -32,8 +32,13 @@ function createMultiplyTable(num) {
 
 function createElement(elementType, textContent, classArr, data, id) {
 	const element = document.createElement(elementType);
-	element.textContent = textContent;
+
+	if (textContent !== undefined) {
+		element.textContent = textContent;
+	}
+
 	element.classList.add(...classArr);
+
 	if (data !== undefined) {
 		element.dataset[data.name] = data.value;
 	}
