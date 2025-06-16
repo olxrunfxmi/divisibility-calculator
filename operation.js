@@ -92,13 +92,27 @@ function numberToWords(num) {
 	}
 }
 
-function generateRules(digitDivisors) {
-	createRuleItem();
-	createBreakdown(number);
+function generateRule(number, dividend) {
+	const ruleItemEl = createElement("div", undefined, [
+		"rule-item",
+		numberToWords(number),
+	]);
 
-	numberRule(num);
-	generateBoxInput(arr);
-	generateHelperDetails(element, arr);
+	//Heading
+	const ruleHeadingEl = ruleHeading(number);
+	ruleItemEl.appendChild(ruleHeadingEl);
+
+	// Breakdown
+	if (number !== 1) {
+		const breakdownEl = createBreakdown(number, dividend);
+		ruleItemEl.appendChild(breakdownEl);
+	}
+
+	// Para
+	const paraEl = createElement("p", rulesExplain[number - 2], []);
+	ruleItemEl.appendChild(paraEl);
+
+	return ruleItemEl;
 }
 
 const rulesExplain = [
@@ -132,7 +146,7 @@ function generateHelperDetails(element, divisor, arr, svgObj) {
 		);
 
 		const svgEl = createSVG(svgObj);
-		const content = `divible by ${divisor} (${number})`;
+		const content = `divisible by ${divisor} (${number})`;
 		const textEl = createElement(
 			"span",
 			content,
@@ -178,6 +192,75 @@ function createSVG(prop) {
 	return svg;
 }
 
+function ruleHeading(number) {
+	if (number >= 1 && number <= 10) {
+		const headingEl = createElement("h3", "Divisible by", []);
+		const numberSpanEl = createElement("span", number, ["number", "small"], {
+			name: "number",
+			value: numberToWords(number),
+		});
+		headingEl.appendChild(numberSpanEl);
+
+		return headingEl;
+	}
+}
+
+function createBreakdown(number, dividend) {
+	if (number >= 2 && number <= 10) {
+		const breakdownEl = createElement("div", undefined, ["breakdown"]);
+		const paraHolderEl = createElement("p", undefined, []);
+
+		switch (number) {
+			case 2:
+				const input = dividend[dividend.length - 1];
+				const divisions = numerousDivision(input, 2, 1);
+				const boxInputEl = createElement("span", input, ["box-input"]);
+				generateHelperDetails(boxInputEl, 2, divisions, svgObj);
+				paraHolderEl.append(boxInputEl);
+
+				break;
+
+			default:
+				break;
+		}
+
+		breakdownEl.appendChild(paraHolderEl);
+
+		return breakdownEl;
+	}
+	return "";
+}
+
+function numerousDivision(dividend, divisor, occurence) {
+	const divisions = [];
+
+	let previousDividend = dividend;
+
+	for (let index = 0; index < occurence; index++) {
+		previousDividend = previousDividend / divisor;
+		divisions.push(previousDividend);
+	}
+
+	return divisions;
+}
+
+console.log(numerousDivision(0, 2, 1));
+
 // Testing
 // const boxInput = document.querySelector(".box-input");
-// generateHelperDetails(boxInput, 2, [4], svgObj);
+// generateHelperDetails(boxInput, 2, [4, 5, 4], svgObj);
+
+// const para = createElement("p", rulesExplain[10 - 2], []);
+// document.body.appendChild(para);
+
+// const heading = ruleHeading(10);
+// document.body.appendChild(heading);
+// console.log(createBreakdown(1));
+
+// const rule = document.querySelector(".rule-item");
+// const breakdown = createBreakdown(2, "3420");
+// rule.appendChild(breakdown);
+
+const ruleContainerEl = document.querySelector(".rule-container");
+const ruleItemEl = generateRule(2, "3240");
+ruleContainerEl.appendChild(ruleItemEl);
