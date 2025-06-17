@@ -29,7 +29,7 @@ const rulesExplain = [
 	"If the last 2 digits together (the hundredth and unit digit) can be divided by 2 twice, it is divisible by 4.",
 	"If the unit digit is 0 or 5, it is divisible by 5.",
 	"If the number is divisible by both 2 and 3, it is divisible by 6.",
-	"Take the last digit, double it. Subtract the number from the remaining digit, if the answer is divisible by 7 or is 0, it's divisible by 7.",
+	"Take the last digit, double it. Subtract the number from the remaining digit, if the answer is divisible by 7 or is 0, it's divisible by 7. You can always repeat the process until you can use a number in the multiplication table",
 	"If you take the last 3 digits of the number and can divide it by 2 three times, it is divisible by 8.",
 	"If the addition of each digit is divisible by 9, then, it is divisible by 9.",
 	"If the unit digit is 0, it is divisible by 10.",
