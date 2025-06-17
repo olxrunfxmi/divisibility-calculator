@@ -21,6 +21,18 @@ const svgObj = {
 	},
 };
 
+const rulesExplain = [
+	"If the last digit (the unit digit) is even, it is divisible by 2.",
+	"If the addition of each digit is divisible by 3, then, it is divisible by 3.",
+	"If the last 2 digits together (the hundredth and unit digit) can be divided by 2 twice, it is divisible by 4.",
+	"If the unit digit is 0 or 5, it is divisible by 5.",
+	"If the number is divisible by both 2 and 3, it is divisible by 6.",
+	"Take the last digit, double it. Subtract the number from the remaining digit, if the answer is divisible by 7 or is 0, it's divisible by 7.",
+	"If you take the last 3 digits of the number and can divide it by 2 three times, it is divisible by 8.",
+	"If the addition of each digit is divisible by 9, then, it is divisible by 9.",
+	"If the unit digit is 0, it is divisible by 10.",
+];
+
 divisionButtonEl.addEventListener("click", () => {
 	if (inputEl.value !== "") {
 		infoSectionEl.dataset.open = "true";
@@ -75,6 +87,7 @@ function updateDivisorCount(digitDivisors) {
 
 function numberToWords(num) {
 	const words = [
+		"zero",
 		"one",
 		"two",
 		"three",
@@ -87,8 +100,8 @@ function numberToWords(num) {
 		"ten",
 	];
 
-	if (num >= 1 && num <= 10) {
-		return words[num - 1];
+	if (num >= 0 && num <= 10) {
+		return words[num];
 	}
 }
 
@@ -108,31 +121,35 @@ function generateRule(number, dividend) {
 		ruleItemEl.appendChild(breakdownEl);
 	}
 
+	let value;
+
+	if (number === 7) {
+		value = "big";
+	} else if (number === 8) {
+		value = "bigger";
+	} else {
+		value = "normal";
+	}
+
 	// Para
-	const paraEl = createElement("p", rulesExplain[number - 2], []);
+	const paraEl = createElement("p", rulesExplain[number - 2], [], {
+		name: "size",
+		value: value,
+	});
 	ruleItemEl.appendChild(paraEl);
 
 	return ruleItemEl;
 }
 
-const rulesExplain = [
-	"If the last digit (the unit digit) is even, it is divisible by 2.",
-	"If the addition of each digit is divisible by 3, then, it is divisible by 3.",
-	"If the last 2 digits together (the hundredth and unit digit) can be divided by 2 twice, it is divisible by 4.",
-	"If the unit digit is 0 or 5, it is divisible by 5.",
-	"If the number is divisible by both 2 and 3, it is divisible by 6.",
-	"Take the last digit, double it. Subtract the number from the remaining digit, if the answer is divisible by 7 or is 0, it's divisible by 7.",
-	"If you take the last 3 digits of the number and can divide it by 2 three times, it is divisible by 8.",
-	"If the addition of each digit is divisible by 9, then, it is divisible by 9.",
-	"If the unit digit is 0, it is divisible by 5.",
-];
-
-function generateHelperDetails(element, divisor, arr, svgObj) {
+function generateHelperDetails(element, divisor, arr, svgObj, type) {
 	const wrapperEl = createElement(
 		"span",
 		undefined,
 		["box-details-wrapper"],
-		undefined,
+		{
+			name: "type",
+			value: type,
+		},
 		undefined
 	);
 
@@ -146,7 +163,19 @@ function generateHelperDetails(element, divisor, arr, svgObj) {
 		);
 
 		const svgEl = createSVG(svgObj);
-		const content = `divisible by ${divisor} (${number})`;
+
+		let content = "";
+
+		if (divisor === 6) {
+			content = `divisible by 2 and 3`;
+		} else if (divisor === 10) {
+			content = `it's ${numberToWords(number)}`;
+		} else if (divisor === "7") {
+			content = `double digit (${arr[0]})`;
+		} else {
+			content = `divisible by ${divisor} (${number})`;
+		}
+
 		const textEl = createElement(
 			"span",
 			content,
@@ -210,16 +239,173 @@ function createBreakdown(number, dividend) {
 		const breakdownEl = createElement("div", undefined, ["breakdown"]);
 		const paraHolderEl = createElement("p", undefined, []);
 
+		let input, divisions, boxInputEl, inputArr;
+
 		switch (number) {
 			case 2:
-				const input = dividend[dividend.length - 1];
-				const divisions = numerousDivision(input, 2, 1);
-				const boxInputEl = createElement("span", input, ["box-input"]);
+				input = dividend[dividend.length - 1];
+				divisions = numerousDivision(input, 2, 1);
+				boxInputEl = createElement("span", input, ["box-input"]);
 				generateHelperDetails(boxInputEl, 2, divisions, svgObj);
 				paraHolderEl.append(boxInputEl);
+				break;
+			case 3:
+				inputArr = dividend.split("");
+				input = inputArr.reduce((acc, current) => {
+					return Number(acc) + Number(current);
+				});
+				divisions = numerousDivision(input, 3, 1);
+
+				inputArr.forEach((input, index) => {
+					let boxInputEl = createElement("span", input, ["box-input"]);
+					let spanEl;
+
+					if (index === inputArr.length - 1) {
+						spanEl = createElement("span", " = ", []);
+					} else {
+						spanEl = createElement("span", " + ", []);
+					}
+
+					paraHolderEl.appendChild(boxInputEl);
+					paraHolderEl.appendChild(spanEl);
+				});
+
+				boxInputEl = createElement("span", input, ["box-input"], {
+					name: "active",
+					value: "true",
+				});
+				generateHelperDetails(boxInputEl, 3, divisions, svgObj);
+				paraHolderEl.append(boxInputEl);
+				break;
+			case 4:
+				input = dividend.substring(dividend.length - 2);
+				inputArr = input.split("");
+
+				divisions = numerousDivision(input, 2, 2);
+
+				inputArr.forEach((input, index) => {
+					boxInputEl = createElement("span", input, ["box-input"]);
+
+					if (index === inputArr.length - 1) {
+						generateHelperDetails(boxInputEl, 2, divisions, svgObj);
+					}
+
+					paraHolderEl.appendChild(boxInputEl);
+				});
+				break;
+			case 5:
+			case 10:
+				input = dividend[dividend.length - 1];
+				boxInputEl = createElement("span", input, ["box-input"]);
+				generateHelperDetails(boxInputEl, 10, [input], svgObj);
+				paraHolderEl.append(boxInputEl);
+				break;
+			case 6:
+				const nums = [2, 3];
+
+				nums.forEach((num, index) => {
+					const numberEl = createElement("span", num, ["number", "small"], {
+						name: "number",
+						value: numberToWords(num),
+					});
+
+					if (index === 1) {
+						const spanEl = createElement("span", " & ", []);
+						paraHolderEl.appendChild(spanEl);
+
+						generateHelperDetails(numberEl, 6, [""], svgObj);
+					}
+
+					paraHolderEl.appendChild(numberEl);
+				});
 
 				break;
+			case 7:
+				const lastDigit = dividend[dividend.length - 1];
+				const remainingDigit = dividend.substring(0, dividend.length - 1);
+				input = Number(remainingDigit) - Number(lastDigit) * 2;
+				inputArr = [...dividend.split(""), String(input)];
+				divisions = numerousDivision(input, 7, 1);
 
+				inputArr.forEach((input, index) => {
+					let boxInputEl = createElement("span", input, ["box-input"], {
+						name: "active",
+						value: index === inputArr.length - 1 ? "true" : "false",
+					});
+					let spanEl;
+
+					if (index === inputArr.length - 2) {
+						spanEl = createElement("span", " - ", []);
+						paraHolderEl.appendChild(spanEl);
+
+						generateHelperDetails(
+							boxInputEl,
+							"7",
+							[Number(lastDigit) * 2],
+							svgObj,
+							"bottom"
+						);
+					} else if (index === inputArr.length - 1) {
+						spanEl = createElement("span", " = ", []);
+						paraHolderEl.appendChild(spanEl);
+
+						generateHelperDetails(boxInputEl, 7, divisions, svgObj);
+					}
+
+					paraHolderEl.appendChild(boxInputEl);
+				});
+
+				break;
+			case 8:
+				input = dividend.substring(dividend.length - 3);
+				inputArr = input.split("");
+
+				divisions = numerousDivision(input, 2, 3);
+
+				inputArr.forEach((input, index) => {
+					boxInputEl = createElement("span", input, ["box-input"]);
+
+					paraHolderEl.appendChild(boxInputEl);
+
+					if (index === inputArr.length - 1) {
+						generateHelperDetails(
+							paraHolderEl,
+							2,
+							divisions,
+							svgObj,
+							"starter"
+						);
+					}
+				});
+				break;
+			case 9:
+				inputArr = dividend.split("");
+				input = inputArr.reduce((acc, current) => {
+					return Number(acc) + Number(current);
+				});
+				divisions = numerousDivision(input, 9, 1);
+
+				inputArr.forEach((input, index) => {
+					let boxInputEl = createElement("span", input, ["box-input"]);
+					let spanEl;
+
+					if (index === inputArr.length - 1) {
+						spanEl = createElement("span", " = ", []);
+					} else {
+						spanEl = createElement("span", " + ", []);
+					}
+
+					paraHolderEl.appendChild(boxInputEl);
+					paraHolderEl.appendChild(spanEl);
+				});
+
+				boxInputEl = createElement("span", input, ["box-input"], {
+					name: "active",
+					value: "true",
+				});
+				generateHelperDetails(boxInputEl, 9, divisions, svgObj);
+				paraHolderEl.append(boxInputEl);
+				break;
 			default:
 				break;
 		}
@@ -234,7 +420,7 @@ function createBreakdown(number, dividend) {
 function numerousDivision(dividend, divisor, occurence) {
 	const divisions = [];
 
-	let previousDividend = dividend;
+	let previousDividend = Number(dividend);
 
 	for (let index = 0; index < occurence; index++) {
 		previousDividend = previousDividend / divisor;
@@ -244,7 +430,7 @@ function numerousDivision(dividend, divisor, occurence) {
 	return divisions;
 }
 
-console.log(numerousDivision(0, 2, 1));
+// console.log(numerousDivision(0, 2, 1));
 
 // Testing
 // const boxInput = document.querySelector(".box-input");
@@ -261,6 +447,6 @@ console.log(numerousDivision(0, 2, 1));
 // const breakdown = createBreakdown(2, "3420");
 // rule.appendChild(breakdown);
 
-const ruleContainerEl = document.querySelector(".rule-container");
-const ruleItemEl = generateRule(2, "3240");
-ruleContainerEl.appendChild(ruleItemEl);
+// const ruleContainerEl = document.querySelector(".rule-container");
+// const ruleItemEl = generateRule(7, "924");
+// ruleContainerEl.appendChild(ruleItemEl);

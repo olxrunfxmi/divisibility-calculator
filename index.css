@@ -838,7 +838,7 @@
 	.rules {
 		background: var(--dc--white--orangish);
 		max-width: 790px;
-		/* min-height: 360px; */
+		min-height: 360px;
 		border-radius: 15px;
 		border: 2px solid var(--dc--accent--orange);
 		box-shadow: var(--scroll-elevation);
@@ -848,8 +848,8 @@
 		padding-block: 20px 64px;
 		padding-inline: 24px;
 
-		/* display: none; */
-		display: flex;
+		display: none;
+		/* display: flex; */
 	
 		&[data-open="true"] {
 			display: flex;
@@ -889,6 +889,8 @@
 				max-width: 500px;
 				display: grid;
 				gap: 12px;
+
+				align-self: self-start;
 
 				.number {
 					margin-inline-start: 6px;
