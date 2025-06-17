@@ -5,6 +5,7 @@ const divisionButtonEl = document.querySelector("#divisible_check");
 const inputEl = document.querySelector("#dividend");
 const infoSectionEl = document.querySelector(".info-section");
 const rulesEl = document.querySelector(".rules");
+const ruleContainerEl = rulesEl.querySelector(".rule-container");
 
 const svgObj = {
 	width: "49",
@@ -22,6 +23,7 @@ const svgObj = {
 };
 
 const rulesExplain = [
+	"Of course, all numbers are divisible by 1.",
 	"If the last digit (the unit digit) is even, it is divisible by 2.",
 	"If the addition of each digit is divisible by 3, then, it is divisible by 3.",
 	"If the last 2 digits together (the hundredth and unit digit) can be divided by 2 twice, it is divisible by 4.",
@@ -51,8 +53,14 @@ divisionButtonEl.addEventListener("click", () => {
 			"number-divisor"
 		);
 		infoParaEl.appendChild(divisorHolderEl);
-
 		addNumberKeys(infoParaEl, digitDivisors);
+
+		ruleContainerEl.textContent = "";
+
+		digitDivisors.forEach((digit) => {
+			const ruleItemEl = generateRule(digit, dividend);
+			ruleContainerEl.appendChild(ruleItemEl);
+		});
 	}
 });
 
@@ -121,6 +129,7 @@ function generateRule(number, dividend) {
 		ruleItemEl.appendChild(breakdownEl);
 	}
 
+	// Para
 	let value;
 
 	if (number === 7) {
@@ -131,8 +140,7 @@ function generateRule(number, dividend) {
 		value = "normal";
 	}
 
-	// Para
-	const paraEl = createElement("p", rulesExplain[number - 2], [], {
+	const paraEl = createElement("p", rulesExplain[number - 1], [], {
 		name: "size",
 		value: value,
 	});
@@ -429,24 +437,3 @@ function numerousDivision(dividend, divisor, occurence) {
 
 	return divisions;
 }
-
-// console.log(numerousDivision(0, 2, 1));
-
-// Testing
-// const boxInput = document.querySelector(".box-input");
-// generateHelperDetails(boxInput, 2, [4, 5, 4], svgObj);
-
-// const para = createElement("p", rulesExplain[10 - 2], []);
-// document.body.appendChild(para);
-
-// const heading = ruleHeading(10);
-// document.body.appendChild(heading);
-// console.log(createBreakdown(1));
-
-// const rule = document.querySelector(".rule-item");
-// const breakdown = createBreakdown(2, "3420");
-// rule.appendChild(breakdown);
-
-// const ruleContainerEl = document.querySelector(".rule-container");
-// const ruleItemEl = generateRule(7, "924");
-// ruleContainerEl.appendChild(ruleItemEl);

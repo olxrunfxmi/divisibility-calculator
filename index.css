@@ -936,6 +936,10 @@
 							border: 3px solid var(--bg-color);
 						}
 					}
+
+					.box-input + .box-input {
+						margin-inline-start: 8px;
+					}
 				}
 
 				p {
