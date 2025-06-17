@@ -36,7 +36,7 @@ const rulesExplain = [
 ];
 
 divisionButtonEl.addEventListener("click", () => {
-	if (inputEl.value !== "") {
+	if (inputEl.value !== "" && Number(inputEl.value) % 1 === 0) {
 		infoSectionEl.dataset.open = "true";
 		rulesEl.dataset.open = "true";
 

@@ -400,6 +400,11 @@
 			background: var(--dc--white--pure);
 			box-shadow: var(--input-elevation);
 
+			&:invalid {
+				border: 4px solid var(--dc--accent--red);
+				outline: none;
+			}
+
 			&:focus {
 				border: 3px solid var(--dc--accent--orange);
 				outline: none;
